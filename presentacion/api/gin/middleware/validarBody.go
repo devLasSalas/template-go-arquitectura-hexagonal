@@ -1,4 +1,4 @@
-package middleware
+package api_middleware
 
 import (
 	"bytes"
