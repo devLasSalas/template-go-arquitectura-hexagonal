@@ -1,4 +1,4 @@
-package comunes_db_clientes
+package dominio_adaptadores_clientes_db
 
 type IClienteDB interface {
 	Select(query string, argumentos []any) ([][]interface{}, error)

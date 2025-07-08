@@ -1,12 +1,12 @@
 package repositorios_infraestruture
 
 import (
-	comunes_db_clientes "genesis/pos/reportes_pos/comunes/dominio/adaptadores/clientes/db"
+	dominio_adaptadores_clientes_db "genesis/pos/reportes_pos/dominio/adaptadores/clientes/db"
 	"genesis/pos/reportes_pos/dominio/entidades"
 )
 
 type RecuperarWatcherParametors struct {
-	Cliente comunes_db_clientes.IClienteDB
+	Cliente dominio_adaptadores_clientes_db.IClienteDB
 }
 
 func (RWP *RecuperarWatcherParametors) Consultar(codigo string) (*entidades.ParametrosWatcher, error) {

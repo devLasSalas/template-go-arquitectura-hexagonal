@@ -14,7 +14,6 @@ func Start() error {
 	if err != nil {
 		log.Fatal(err)
 		return err
-
 	}
 
 	ip := constantes.HOST_IP

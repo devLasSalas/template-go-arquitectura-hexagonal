@@ -1,9 +1,9 @@
 package contenedor
 
 import (
-	comunes_db_clientes "genesis/pos/reportes_pos/comunes/dominio/adaptadores/clientes/db"
-	comunes_http_clientes "genesis/pos/reportes_pos/comunes/dominio/adaptadores/clientes/http"
-	"genesis/pos/reportes_pos/comunes/dominio/adaptadores/mapeadores"
+	dominio_adaptadores_clientes_db "genesis/pos/reportes_pos/dominio/adaptadores/clientes/db"
+	dominio_adaptadores_clientes_http "genesis/pos/reportes_pos/dominio/adaptadores/clientes/http"
+	"genesis/pos/reportes_pos/dominio/adaptadores/mapeadores"
 	"genesis/pos/reportes_pos/dominio/constantes"
 	dominio_repositorios "genesis/pos/reportes_pos/dominio/repositorios/db"
 	infraestructura_db_cliente "genesis/pos/reportes_pos/infraestructura/db/cliente"
@@ -23,8 +23,8 @@ var RecuperarWacher dominio_repositorios.IRecuperarWacher
 
 //Clientes
 
-var ClienteDB comunes_db_clientes.IClienteDB
-var ClienteHttp comunes_http_clientes.IClienteHttp
+var ClienteDB dominio_adaptadores_clientes_db.IClienteDB
+var ClienteHttp dominio_adaptadores_clientes_http.IClienteHttp
 
 //MAPPER
 

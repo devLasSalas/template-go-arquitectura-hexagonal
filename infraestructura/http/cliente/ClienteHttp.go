@@ -2,7 +2,7 @@ package cliente_infrastruc
 
 import (
 	"bytes"
-	comunes_entidades "genesis/pos/reportes_pos/comunes/dominio/entidades"
+	"genesis/pos/reportes_pos/dominio/entidades"
 	"io"
 	"log"
 	"net"
@@ -14,7 +14,7 @@ type ClienteHttp struct {
 	cliente *http.Client
 }
 
-func (CHttp *ClienteHttp) Enviar(metodo string, url string, mensaje *comunes_entidades.HttpRequest) (*comunes_entidades.HttpResponse, error) {
+func (CHttp *ClienteHttp) Enviar(metodo string, url string, mensaje *entidades.HttpRequest) (*entidades.HttpResponse, error) {
 
 	request, err := http.NewRequest(metodo, "http://"+url, bytes.NewBuffer(mensaje.Body))
 	if err != nil {
@@ -36,7 +36,7 @@ func (CHttp *ClienteHttp) Enviar(metodo string, url string, mensaje *comunes_ent
 	if err != nil {
 		return nil, err
 	}
-	responesDominio := &comunes_entidades.HttpResponse{
+	responesDominio := &entidades.HttpResponse{
 		StatusCode: response.StatusCode,
 		Body:       bodyBytes,
 		Status:     response.Status,
