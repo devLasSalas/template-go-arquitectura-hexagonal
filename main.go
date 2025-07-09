@@ -13,6 +13,7 @@ func main() {
 
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	log.SetOutput(os.Stdout)
+	log.Println("¡MS MOVIMIENTO INVENTARIO!")
 
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")

@@ -5,4 +5,5 @@ const (
 
 	API_TIPOS_OPERACIONES = "/tipos/operaciones"
 	API_TIPOS_MOVIMIENTOS = "/tipos/movimientos"
+	API_BODEGAS_POR_EDS   = "/bodegas/eds"
 )

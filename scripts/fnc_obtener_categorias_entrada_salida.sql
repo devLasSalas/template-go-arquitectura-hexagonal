@@ -14,7 +14,8 @@ DECLARE
 BEGIN
     SELECT COALESCE(json_agg(row_to_json(ces)), '[]'::json)
     INTO v_resultado
-    FROM tienda.tbl_categoria_entrada_salida ces;
+    FROM tienda.tbl_categoria_entrada_salida ces
+    WHERE ces.estado_id = 1;
 
     RETURN v_resultado;
 END;
