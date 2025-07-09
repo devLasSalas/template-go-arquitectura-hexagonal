@@ -1,10 +1,9 @@
 package api_adaptador_servidor
 
 import (
-	"fmt"
-	"genesis/pos/reportes_pos/dominio/constantes"
 	api_routes "genesis/pos/reportes_pos/presentacion/api/gin/routes"
 	"log"
+	"os"
 )
 
 func Start() error {
@@ -16,16 +15,23 @@ func Start() error {
 		return err
 	}
 
-	ip := constantes.HOST_IP
-	port := constantes.HOST_PORT
-	host := ip + ":" + port
-	err = servidor.Run(host)
-	if err != nil {
-		log.Fatal(err)
-		return err
+	port := ":" + os.Getenv("SERVER_PORT")
+	dev := os.Getenv("DEV") == "true"
 
+	if dev {
+		log.Println("INICIANDO SERVIDOR SIN SSL en el puerto", port)
+		if err := servidor.Run(port); err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		certFile := os.Getenv("SSL_CERT_FILE")
+		keyFile := os.Getenv("SSL_KEY_FILE")
+
+		log.Println("INICIANDO SERVIDOR CON SSL en el puerto")
+		if err := servidor.RunTLS(port, certFile, keyFile); err != nil {
+			log.Fatal(err)
+		}
 	}
-	fmt.Println("SERVIDOR CORRIENDO: ", host)
-	return nil
 
+	return nil
 }

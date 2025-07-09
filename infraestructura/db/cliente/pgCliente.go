@@ -2,6 +2,7 @@ package infraestructura_db_cliente
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -43,6 +44,39 @@ func (CDB *ClienteDB) Select(query string, argumentos []any) ([][]interface{}, e
 
 	return resultado, nil
 
+}
+
+func (CDB *ClienteDB) Exec(query string, argumentos []any) ([][]interface{}, error) {
+	connecion, err := CDB.Conn.Acquire(CDB.contexto)
+	if err != nil {
+		return nil, fmt.Errorf("error al adquirir conexión: %w", err)
+	}
+	defer connecion.Release()
+
+	if err := connecion.Ping(CDB.contexto); err != nil {
+		return nil, fmt.Errorf("error al hacer ping a la base de datos: %w", err)
+	}
+
+	rows, err := connecion.Query(CDB.contexto, query, argumentos...)
+	if err != nil {
+		return nil, fmt.Errorf("error al ejecutar la consulta: %w", err)
+	}
+	defer rows.Close()
+
+	var resultado [][]interface{}
+	for rows.Next() {
+		valores, err := rows.Values()
+		if err != nil {
+			return nil, fmt.Errorf("error al leer valores de la fila: %w", err)
+		}
+		resultado = append(resultado, valores)
+	}
+
+	if rows.Err() != nil {
+		return nil, fmt.Errorf("error iterando sobre filas: %w", rows.Err())
+	}
+
+	return resultado, nil
 }
 
 const defaultMaxConns = int32(4)
